@@ -1,3 +1,4 @@
+const Employee = require('./lib/Employee');
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -18,6 +19,8 @@ inquirer.prompt([
     },
 
 ]).then((response) => {
+    console.log('hi');
+});
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
