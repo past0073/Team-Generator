@@ -10,13 +10,86 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const Choices = require('inquirer/lib/objects/choices');
 
 inquirer.prompt([
     {
         type: 'input',
-        name: 'title',
-        message: 'What is the title of your project?'
+        name: 'manager',
+        message: 'What is the name of your manager?'
     },
+    {
+        type: 'input',
+        name: 'managerID',
+        message: "What is your manager's id?"
+    },
+    {
+        type: 'input',
+        name: 'managerEmail',
+        message: "What is your manager's email?"
+    },
+    //Add email validation
+    {
+        type: 'input',
+        name: 'managerOffice',
+        message: "What is your manager's office number?"
+    },
+    {
+        type: 'list',
+        name: 'nextMember',
+        message: 'Which type of team member would you like to add?',
+        choices:['Engineer', 'Intern', "I don't want to add more team members"]
+    },
+    {
+        type: 'input',
+        name: 'engineer',
+        message: 'What is the name of your engineer?'
+    },
+    {
+        type: 'input',
+        name: 'engineerID',
+        message: "What is your engineer's id?"
+    },
+    {
+        type: 'input',
+        name: 'engineerEmail',
+        message: "What is your engineer's email?"
+    },
+    {
+        type: 'input',
+        name: 'engineerGithub',
+        message: "What is your engineer's Github username?"
+    },
+    {
+        type: 'list',
+        name: 'nextMember1',
+        message: 'Which type of team member would you like to add?',
+        choices:['Engineer', 'Intern', "I don't want to add more team members"]
+    },
+    {
+        type: 'input',
+        name: 'intern',
+        message: 'What is the name of your intern?'
+    },
+    {
+        type: 'input',
+        name: 'internID',
+        message: "What is your intern's id?"
+    },
+    {
+        type: 'input',
+        name: 'internEmail',
+        message: "What is your intern's email?"
+    },
+    {
+        type: 'input',
+        name: 'internSchool',
+        message: "What is your intern's school?"
+    },
+//Add as many members as the user desires
+//Create an output folder (team.html)
+//github should link to github
+
 
 ]).then((response) => {
     console.log('hi');
