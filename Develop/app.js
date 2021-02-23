@@ -93,6 +93,11 @@ inquirer.prompt([
 
 ]).then((response) => {
     console.log('hi');
+    render([Employee,Engineer,Intern,Manager]);
+
+    fs.writeFile(outputPath, (err) =>
+    err ? console.log(err) : console.log("README file generated.")
+    )
 });
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
