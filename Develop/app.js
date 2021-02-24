@@ -12,7 +12,11 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 const Choices = require('inquirer/lib/objects/choices');
 
+const employees = [];
+
 inquirer.prompt([
+
+    //Manager Prompts
     {
         type: 'input',
         name: 'manager',
@@ -26,20 +30,31 @@ inquirer.prompt([
     {
         type: 'input',
         name: 'managerEmail',
-        message: "What is your manager's email?"
+        message: "What is your manager's email?",
+        validate: function (email) {
+            if (email.includes("@" && ".")) {
+                return true;
+            }
+            else {
+                return "Please enter a valid email."
+            }
+        }
     },
-    //Add email validation
     {
         type: 'input',
         name: 'managerOffice',
         message: "What is your manager's office number?"
     },
+
+    //New member prompt
     {
         type: 'list',
         name: 'nextMember',
         message: 'Which type of team member would you like to add?',
         choices:['Engineer', 'Intern', "I don't want to add more team members"]
     },
+
+    //Engineer prompts
     {
         type: 'input',
         name: 'engineer',
@@ -60,12 +75,8 @@ inquirer.prompt([
         name: 'engineerGithub',
         message: "What is your engineer's Github username?"
     },
-    {
-        type: 'list',
-        name: 'nextMember1',
-        message: 'Which type of team member would you like to add?',
-        choices:['Engineer', 'Intern', "I don't want to add more team members"]
-    },
+
+    //Intern prompts
     {
         type: 'input',
         name: 'intern',
@@ -87,16 +98,12 @@ inquirer.prompt([
         message: "What is your intern's school?"
     },
 //Add as many members as the user desires
-//Create an output folder (team.html)
-//github should link to github
-
 
 ]).then((response) => {
-    console.log('hi');
-    render([Employee,Engineer,Intern,Manager]);
+    render([]);
 
-    fs.writeFile(outputPath, (err) =>
-    err ? console.log(err) : console.log("README file generated.")
+    fs.writeFile(outputPath, render(employees), (err) =>
+    err ? console.log(err) : console.log("Team Generator generated!")
     )
 });
 // Write code to use inquirer to gather information about the development team members,
