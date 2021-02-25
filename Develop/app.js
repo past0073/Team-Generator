@@ -11,6 +11,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 const Choices = require('inquirer/lib/objects/choices');
+const { doesNotMatch } = require('assert');
 
 const employees = [];
 
@@ -25,7 +26,13 @@ function managerPrompts() {
     {
         type: 'input',
         name: 'id',
-        message: "What is your manager's id?"
+        message: "What is your manager's id?",
+        validate: (answer) => {
+            if (isNaN(answer)) {
+              return "please enter a number";
+            }
+            return true;
+          },
     },
     {
         type: 'input',
@@ -85,7 +92,13 @@ function newMember() {
     {
         type: 'input',
         name: 'id',
-        message: "What is your engineer's id?"
+        message: "What is your engineer's id?",
+        validate: (answer) => {
+            if (isNaN(answer)) {
+              return "please enter a number";
+            }
+            return true;
+          },
     },
     {
         type: 'input',
@@ -122,7 +135,13 @@ inquirer.prompt([
     {
         type: 'input',
         name: 'id',
-        message: "What is your intern's id?"
+        message: "What is your intern's id?",
+        validate: (answer) => {
+            if (isNaN(answer)) {
+              return "please enter a number";
+            }
+            return true;
+          },
     },
     {
         type: 'input',
