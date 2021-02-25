@@ -28,9 +28,6 @@ This project is licensed under the terms of the MIT license.
 If you have any questions or run into any issues with this application, please feel free to find me, past0073, on GitHub at github.com/past0073. You can also reach out to me via email at past0073@umn.edu.
 
 
-
-
-
-Screenshots:
+## Screenshots:
 
 ![image](https://user-images.githubusercontent.com/74335621/109095985-596e0100-76e2-11eb-80aa-9e5fcb98e4cd.png)
