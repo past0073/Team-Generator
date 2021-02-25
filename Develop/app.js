@@ -14,22 +14,22 @@ const Choices = require('inquirer/lib/objects/choices');
 
 const employees = [];
 
-inquirer.prompt([
-
-    //Manager Prompts
+//Manager Prompts
+function managerPrompts() {
+    inquirer.prompt([
     {
         type: 'input',
-        name: 'manager',
+        name: 'name',
         message: 'What is the name of your manager?'
     },
     {
         type: 'input',
-        name: 'managerID',
+        name: 'id',
         message: "What is your manager's id?"
     },
     {
         type: 'input',
-        name: 'managerEmail',
+        name: 'email',
         message: "What is your manager's email?",
         validate: function (email) {
             if (email.includes("@" && ".")) {
@@ -42,70 +42,121 @@ inquirer.prompt([
     },
     {
         type: 'input',
-        name: 'managerOffice',
+        name: 'officeNumber',
         message: "What is your manager's office number?"
     },
+    ]).then(function({name, id, email, officeNumber}) {
+        const manager = new Manager(name, id, email, officeNumber)
+        employees.push(manager);
+        newMember();
+    })
+};
 
-    //New member prompt
+//New member prompt
+function newMember() { 
+    inquirer.prompt([ 
     {
         type: 'list',
         name: 'nextMember',
         message: 'Which type of team member would you like to add?',
         choices:['Engineer', 'Intern', "I don't want to add more team members"]
     },
-
-    //Engineer prompts
+    ]).then(function(response) {
+        if (response.nextMember === 'Engineer'){
+            return engineerPrompt();
+        }
+        else if (response.nextMember ==='Intern') {
+            return internPrompt();
+        }
+        else {
+            console.log("Great! Your team has been assembled!")
+        }
+        //add the ending
+    })
+};
+ //Engineer prompts
+ function engineerPrompt() {
+     inquirer.prompt([
     {
         type: 'input',
-        name: 'engineer',
+        name: 'name',
         message: 'What is the name of your engineer?'
     },
     {
         type: 'input',
-        name: 'engineerID',
+        name: 'id',
         message: "What is your engineer's id?"
     },
     {
         type: 'input',
-        name: 'engineerEmail',
-        message: "What is your engineer's email?"
+        name: 'email',
+        message: "What is your engineer's email?",
+        validate: function (email) {
+            if (email.includes("@" && ".")) {
+                return true;
+            }
+            else {
+                return "Please enter a valid email."
+            }
+        }
     },
     {
         type: 'input',
-        name: 'engineerGithub',
+        name: 'github',
         message: "What is your engineer's Github username?"
     },
+    ]).then(function({name, id, email, github}) {
+        const engineer = new Engineer(name, id, email, github);
+        newMember();
+    })
+    };
 
-    //Intern prompts
+//Intern prompts
+function internPrompt() {
+inquirer.prompt([
     {
         type: 'input',
-        name: 'intern',
+        name: 'name',
         message: 'What is the name of your intern?'
     },
     {
         type: 'input',
-        name: 'internID',
+        name: 'id',
         message: "What is your intern's id?"
     },
     {
         type: 'input',
-        name: 'internEmail',
-        message: "What is your intern's email?"
+        name: 'email',
+        message: "What is your intern's email?",
+        validate: function (email) {
+            if (email.includes("@" && ".")) {
+                return true;
+            }
+            else {
+                return "Please enter a valid email."
+            }
+        }
     },
     {
         type: 'input',
-        name: 'internSchool',
+        name: 'school',
         message: "What is your intern's school?"
     },
-//Add as many members as the user desires
+    ]).then(function({name, id, email, school}) {
+        const intern = new Intern(name, id, email, school);
+        newMember();
+    })
+};
 
-]).then((response) => {
-    render([]);
+managerPrompts();
 
-    fs.writeFile(outputPath, render(employees), (err) =>
-    err ? console.log(err) : console.log("Team Generator generated!")
-    )
-});
+// ]).then((response) => {
+//     render([]);
+
+//     fs.writeFile(outputPath, render(employees), (err) =>
+//     err ? console.log(err) : console.log("Team Generator generated!")
+//     )
+// });
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
