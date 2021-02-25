@@ -50,7 +50,13 @@ function managerPrompts() {
     {
         type: 'input',
         name: 'officeNumber',
-        message: "What is your manager's office number?"
+        message: "What is your manager's office number?",
+        validate: (answer) => {
+            if (isNaN(answer)) {
+              return "please enter a number";
+            }
+            return true;
+          },
     },
     ]).then(function({name, id, email, officeNumber}) {
         const manager = new Manager(name, id, email, officeNumber)
@@ -69,18 +75,19 @@ function newMember() {
         choices:['Engineer', 'Intern', "I don't want to add more team members"]
     },
     ]).then(function(response) {
-        if (response.nextMember === 'Engineer'){
+        if (response.nextMember === 'Engineer') {
             return engineerPrompt();
         }
         else if (response.nextMember ==='Intern') {
             return internPrompt();
         }
         else {
-            console.log("Great! Your team has been assembled!")
-        }
-        //add the ending
-    })
+            fs.writeFile(outputPath, render(employees), function (err) {
+            err ? console.log(err) : console.log("Great! Your team has been generated!")
+            })}
+        });  
 };
+    
  //Engineer prompts
  function engineerPrompt() {
      inquirer.prompt([
@@ -120,6 +127,7 @@ function newMember() {
     },
     ]).then(function({name, id, email, github}) {
         const engineer = new Engineer(name, id, email, github);
+        employees.push(engineer);
         newMember();
     })
     };
@@ -163,6 +171,7 @@ inquirer.prompt([
     },
     ]).then(function({name, id, email, school}) {
         const intern = new Intern(name, id, email, school);
+        employees.push(intern);
         newMember();
     })
 };
@@ -172,8 +181,7 @@ managerPrompts();
 // ]).then((response) => {
 //     render([]);
 
-//     fs.writeFile(outputPath, render(employees), (err) =>
-//     err ? console.log(err) : console.log("Team Generator generated!")
+
 //     )
 // });
 // Write code to use inquirer to gather information about the development team members,
