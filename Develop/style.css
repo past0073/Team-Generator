@@ -7,3 +7,7 @@ h1 {
     font-family: fantasy;
     font-size: 55px;
 }
+
+.card {
+    margin: 5px;
+}
