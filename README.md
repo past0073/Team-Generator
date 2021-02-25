@@ -11,17 +11,17 @@ An application that takes in information about your team and generates a formatt
 * [License](#license)
 * [Questions](#questions)
 ## Installation
-\`\`\`
+```
 npm install
-\`\`\`
+```
 ## Usage
-\`\`\`
+```
 node app.js
-\`\`\`
+```
 ## Testing
-\`\`\`
+```
 npm test
-\`\`\`
+```
 ## License
 This project is licensed under the terms of the MIT license.
 ## Questions
